@@ -129,4 +129,3 @@ Casos borde probados:
 - pedido sin items
 - ID inexistente
 - transicion de estado invalida
-
