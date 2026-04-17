@@ -43,7 +43,7 @@ flowchart TB
 	class Domain domain;
 ```
 
-Version ASCII (si la rubrica exige explicitamente ASCII):
+Version ASCII:
 
 ```text
 +-------------------------------+
