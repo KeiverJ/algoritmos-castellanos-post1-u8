@@ -15,39 +15,76 @@ separando:
 
 ## Arquitectura Hexagonal
 
-Diagrama de componentes (vista simplificada):
+Diagrama de componentes (dinamico, renderizado por GitHub con Mermaid):
+
+```mermaid
+flowchart TB
+	Client[Cliente HTTP<br/>Postman, Frontend, curl]
+	Controller[Adaptador de Entrada<br/>OrderController]
+	InPorts[Puertos de Entrada<br/>CreateOrderUseCase<br/>GetOrderUseCase<br/>UpdateOrderStatusUseCase]
+	Service[Servicio de Aplicacion<br/>OrderService]
+	OutPort[Puerto de Salida<br/>OrderRepository]
+	Repo[Adaptador de Persistencia<br/>InMemoryOrderRepository]
+	Domain[Dominio<br/>Order, OrderItem, OrderStatus]
+
+	Client -->|REST| Controller
+	Controller -->|comandos y consultas| InPorts
+	InPorts -->|orquestacion de casos de uso| Service
+	Service -->|persistencia| OutPort
+	OutPort -->|implementacion concreta| Repo
+	Service -->|reglas de negocio| Domain
+
+	classDef adapter fill:#e8f1ff,stroke:#2f6fed,stroke-width:1px,color:#0f2d6b;
+	classDef application fill:#fff4df,stroke:#d48806,stroke-width:1px,color:#7a4b00;
+	classDef domain fill:#e9f9ef,stroke:#2f9e44,stroke-width:1px,color:#1f6b30;
+
+	class Client,Controller,Repo adapter;
+	class InPorts,Service,OutPort application;
+	class Domain domain;
+```
+
+Version ASCII (si la rubrica exige explicitamente ASCII):
 
 ```text
-+-------------------------------------------------------------+
-|                 Adaptador de Entrada (HTTP)                 |
-|                      OrderController                        |
-+------------------------------+------------------------------+
-                               |
-                               | comandos de casos de uso
-                               v
-+-------------------------------------------------------------+
-|                  Puertos de Entrada (in)                    |
-|   CreateOrderUseCase | GetOrderUseCase | UpdateOrderStatus  |
-+------------------------------+------------------------------+
-                               |
-                               v
-+-------------------------------------------------------------+
-|                  Servicio de Aplicacion                     |
-|                         OrderService                        |
-+------------------------------+------------------------------+
-                               |
-                               | operaciones de persistencia
-                               v
-+-------------------------------------------------------------+
-|                   Puerto de Salida (out)                    |
-|                        OrderRepository                      |
-+------------------------------+------------------------------+
-                               |
-                               v
-+-------------------------------------------------------------+
-|             Adaptador de Persistencia en Memoria            |
-|                   InMemoryOrderRepository                   |
-+-------------------------------------------------------------+
++-------------------------------+
+| Cliente HTTP / Frontend       |
++---------------+---------------+
+				|
+				v
++---------------+---------------+
+| Adaptador in (HTTP)           |
+| OrderController               |
++---------------+---------------+
+				|
+				v
++---------------+---------------+
+| Puertos de entrada (in)       |
+| Create | Get | UpdateStatus   |
++---------------+---------------+
+				|
+				v
++---------------+---------------+
+| Servicio de aplicacion        |
+| OrderService                  |
++---------------+---------------+
+				| usa
+				v
++---------------+---------------+
+| Dominio                        |
+| Order | OrderItem | Status     |
++---------------+---------------+
+				|
+				v
++---------------+---------------+
+| Puerto de salida (out)        |
+| OrderRepository               |
++---------------+---------------+
+				|
+				v
++---------------+---------------+
+| Adaptador de persistencia     |
+| InMemoryOrderRepository       |
++-------------------------------+
 ```
 
 ## Estructura del Proyecto
