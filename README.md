@@ -15,7 +15,7 @@ separando:
 
 ## Arquitectura Hexagonal
 
-Diagrama de componentes (dinamico, renderizado por GitHub con Mermaid):
+Diagrama de componentes:
 
 ```mermaid
 flowchart TB
