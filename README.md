@@ -18,34 +18,36 @@ separando:
 Diagrama de componentes (vista simplificada):
 
 ```text
-										+---------------------------------------+
-										|     Adaptador de Entrada (HTTP)       |
-										|        OrderController                |
-										+-------------------+-------------------+
-																				|
-																				v
-										+---------------------------------------+
-										|      Puertos de Entrada (in)          |
-										| Create/Get/UpdateOrderStatusUseCase   |
-										+-------------------+-------------------+
-																				|
-																				v
-										+---------------------------------------+
-										|      Servicio de Aplicacion           |
-										|            OrderService               |
-										+-------------------+-------------------+
-																				|
-																				v
-										+---------------------------------------+
-										|      Puerto de Salida (out)           |
-										|           OrderRepository             |
-										+-------------------+-------------------+
-																				|
-																				v
-										+---------------------------------------+
-										| Adaptador de Persistencia en Memoria  |
-										|      InMemoryOrderRepository          |
-										+---------------------------------------+
++-------------------------------------------------------------+
+|                 Adaptador de Entrada (HTTP)                 |
+|                      OrderController                        |
++------------------------------+------------------------------+
+                               |
+                               | comandos de casos de uso
+                               v
++-------------------------------------------------------------+
+|                  Puertos de Entrada (in)                    |
+|   CreateOrderUseCase | GetOrderUseCase | UpdateOrderStatus  |
++------------------------------+------------------------------+
+                               |
+                               v
++-------------------------------------------------------------+
+|                  Servicio de Aplicacion                     |
+|                         OrderService                        |
++------------------------------+------------------------------+
+                               |
+                               | operaciones de persistencia
+                               v
++-------------------------------------------------------------+
+|                   Puerto de Salida (out)                    |
+|                        OrderRepository                      |
++------------------------------+------------------------------+
+                               |
+                               v
++-------------------------------------------------------------+
+|             Adaptador de Persistencia en Memoria            |
+|                   InMemoryOrderRepository                   |
++-------------------------------------------------------------+
 ```
 
 ## Estructura del Proyecto
