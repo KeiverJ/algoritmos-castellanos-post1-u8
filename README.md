@@ -85,29 +85,29 @@ src/test/java/orders/
 ## Contratos de Puertos
 
 - CreateOrderUseCase
-	- Precondicion: customerId no nulo y lista de items no vacia.
-	- Postcondicion: pedido creado con ID y estado PENDING.
+  - Precondicion: customerId no nulo y lista de items no vacia.
+  - Postcondicion: pedido creado con ID y estado PENDING.
 - GetOrderUseCase
-	- Postcondicion: retorna el pedido existente.
-	- Excepcion: OrderNotFoundException si no existe.
+  - Postcondicion: retorna el pedido existente.
+  - Excepcion: OrderNotFoundException si no existe.
 - UpdateOrderStatusUseCase
-	- Precondicion: transicion valida de estado.
-	- Postcondicion: pedido persistido con nuevo estado.
+  - Precondicion: transicion valida de estado.
+  - Postcondicion: pedido persistido con nuevo estado.
 - OrderRepository
-	- save(order): persiste y retorna pedido.
-	- findById(id): Optional con pedido por ID.
-	- findByCustomerId(customerId): lista pedidos por cliente.
+  - save(order): persiste y retorna pedido.
+  - findById(id): Optional con pedido por ID.
+  - findByCustomerId(customerId): lista pedidos por cliente.
 
 ## Reglas de Negocio Implementadas
 
 - No se permite crear pedidos sin items.
-- El total del pedido se calcula como suma de precio * cantidad.
+- El total del pedido se calcula como suma de precio \* cantidad.
 - Estados soportados: PENDING, CONFIRMED, SHIPPED, DELIVERED, CANCELLED.
 - Transiciones validas:
-	- PENDING -> CONFIRMED, CANCELLED
-	- CONFIRMED -> SHIPPED, CANCELLED
-	- SHIPPED -> DELIVERED
-	- DELIVERED y CANCELLED no permiten cambios posteriores
+  - PENDING -> CONFIRMED, CANCELLED
+  - CONFIRMED -> SHIPPED, CANCELLED
+  - SHIPPED -> DELIVERED
+  - DELIVERED y CANCELLED no permiten cambios posteriores
 
 ## Como Ejecutar Pruebas
 
@@ -130,14 +130,3 @@ Casos borde probados:
 - ID inexistente
 - transicion de estado invalida
 
-## Evidencias
-
-Las capturas requeridas por la actividad deben guardarse en:
-
-- capturas/
-
-Sugerencia de evidencias:
-
-- ejecucion de mvn test en consola
-- arbol de carpetas del proyecto
-- historial de commits descriptivos
